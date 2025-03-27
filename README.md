@@ -53,10 +53,10 @@ pip install pillow
 pip install torchaudio
 ```
 ### Important:
-   - For Ubuntu/Debian-based systems:
-     ```
-     sudo apt-get install libportaudio2
-     ```
+For Ubuntu/Debian-based systems:
+ ```
+sudo apt-get install libportaudio2
+ ```
 
 1. Get your free API key from Google AI Studio:
    - Visit [Google AI Studio](https://aistudio.google.com/prompts/new_chat)
