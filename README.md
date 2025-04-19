@@ -73,12 +73,14 @@ sudo apt-get install libportaudio2
 
 Make `config.json` file in the node main folder:
 ```json
-
 {
     "GEMINI_API_KEY": "your_api_key_here"
 }
-
 ```
+
+### WSL 2 Ubuntu Users
+
+### Note: always insert the API-KEY into Gemini Flash 2 node.
 
 ## Node Inputs
 
@@ -91,10 +93,11 @@ Make `config.json` file in the node main folder:
 - **clear_history**: Boolean to reset chat history
 
 ### Optional Inputs:
-- **text_input**: Additional text input for context
+- **Additional_Context**: Additional text input for context
 - **images**: Multiple image inputs (IMAGE type with list=True)
 - **video**: Video frame sequence input (IMAGE type)
 - **audio**: Audio input (AUDIO type)
+- **api_key**: Directly enter your API key (recommended for WSL/Ubuntu)
 - **max_output_tokens**: Set maximum output length (1-8192)
 - **temperature**: Control response randomness (0.0-1.0)
 - **structured_output**: Enable structured response format
@@ -176,6 +179,19 @@ The new image generation capabilities allow you to:
 - Provide clear, detailed prompts for better results
 - Connect reference images for style guidance
 - Use seed parameter for reproducible results
+
+## Troubleshooting Cross-Platform Issues
+
+### Windows vs. Ubuntu/WSL Differences
+- On Windows, both config file and GUI methods work well
+- On Ubuntu/WSL, entering the API key directly in the GUI is more reliable
+- If using lowercase filenames on Ubuntu (e.g., `gemini_flash_node.py` instead of `Gemini_Flash_Node.py`), the node will still work properly
+
+### Common Issues on Ubuntu/WSL:
+- If you get "400 Bad Request" errors, try entering your API key directly in the GUI
+- Make sure binary data (images, audio) is properly base64 encoded
+- Check network connectivity and proxy settings
+- Ensure proper file permissions for config files
 
 ## Error Handling
 
