@@ -16,18 +16,22 @@ def load_python_file(filepath):
 
 # Try to find the node files (case-insensitive on Linux)
 nodes_dir = os.path.join(current_path, "nodes")
-gemini_filename = "Gemini_Flash_Node.py"
+gemini_filename = "gemini_flash_node.py"
+gemini_25_filename = "gemini_2_5_node.py"
 audio_recorder_filename = "nodes_audio_recorder.py"
 
 gemini_path = None
+gemini_25_path = None
 audio_recorder_path = None
 
 # First try the exact case
 exact_gemini_path = os.path.join(nodes_dir, gemini_filename)
+exact_gemini_25_path = os.path.join(nodes_dir, gemini_25_filename)
 exact_audio_path = os.path.join(nodes_dir, audio_recorder_filename)
 
 # Then try lowercase if needed
 lower_gemini_path = os.path.join(nodes_dir, gemini_filename.lower())
+lower_gemini_25_path = os.path.join(nodes_dir, gemini_25_filename.lower())
 lower_audio_path = os.path.join(nodes_dir, audio_recorder_filename.lower())
 
 # Check which paths exist and use them
@@ -37,6 +41,13 @@ if os.path.exists(exact_gemini_path):
 elif os.path.exists(lower_gemini_path):
     gemini_path = lower_gemini_path
     print(f"Found Gemini node at lowercase path: {gemini_path}")
+
+if os.path.exists(exact_gemini_25_path):
+    gemini_25_path = exact_gemini_25_path
+    print(f"Found Gemini 2.5 node at: {gemini_25_path}")
+elif os.path.exists(lower_gemini_25_path):
+    gemini_25_path = lower_gemini_25_path
+    print(f"Found Gemini 2.5 node at lowercase path: {gemini_25_path}")
 
 if os.path.exists(exact_audio_path):
     audio_recorder_path = exact_audio_path
@@ -57,12 +68,18 @@ except Exception as e:
 
 # Load modules if found
 gemini_module = None
+gemini_25_module = None
 audio_recorder_module = None
 
 if gemini_path:
     gemini_module = load_python_file(gemini_path)
 else:
     print(f"Could not find Gemini node file (tried {gemini_filename} and {gemini_filename.lower()})")
+
+if gemini_25_path:
+    gemini_25_module = load_python_file(gemini_25_path)
+else:
+    print(f"Could not find Gemini 2.5 node file (tried {gemini_25_filename} and {gemini_25_filename.lower()})")
 
 if audio_recorder_path:
     audio_recorder_module = load_python_file(audio_recorder_path)
@@ -80,6 +97,13 @@ if gemini_module and hasattr(gemini_module, 'NODE_CLASS_MAPPINGS'):
 
 if gemini_module and hasattr(gemini_module, 'NODE_DISPLAY_NAME_MAPPINGS'):
     NODE_DISPLAY_NAME_MAPPINGS.update(gemini_module.NODE_DISPLAY_NAME_MAPPINGS)
+
+if gemini_25_module and hasattr(gemini_25_module, 'NODE_CLASS_MAPPINGS'):
+    NODE_CLASS_MAPPINGS.update(gemini_25_module.NODE_CLASS_MAPPINGS)
+    print("Added Gemini 2.5 node to mappings")
+
+if gemini_25_module and hasattr(gemini_25_module, 'NODE_DISPLAY_NAME_MAPPINGS'):
+    NODE_DISPLAY_NAME_MAPPINGS.update(gemini_25_module.NODE_DISPLAY_NAME_MAPPINGS)
 
 if audio_recorder_module and hasattr(audio_recorder_module, 'NODE_CLASS_MAPPINGS'):
     NODE_CLASS_MAPPINGS.update(audio_recorder_module.NODE_CLASS_MAPPINGS)
